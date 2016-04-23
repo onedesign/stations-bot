@@ -1,5 +1,10 @@
 # Station to Station Slackbot
 
+This provides a few simple [Slack slash commands](https://api.slack.com/slash-commands)
+for quickly checking bikeshare availability, wherever you need.
+
+This uses data from [Station to Station](https://stationtostationapp.com), by [Peter Compernolle](https://github.com/thelowlypeon), with permission.
+
 ## Commands
 
 ### Help
