@@ -1,22 +1,54 @@
 class GeolocationCommand < BaseCommand
-  def initialize(data)
-    @latitude = data[:latitude]
-    @longitude = data[:longitude]
+  def initialize(args)
+    if args.is_a? Hash
+      @latitude = args[:latitude]
+      @longitude = args[:longitude]
+    elsif args.is_a? String
+      if matches = args.match(/^(?<latitude>-?[\d\.]+)\s*,\s*(?<longitude>-?[\d\.]+)$/)
+        @latitude = matches[:latitude]
+        @longitude = matches[:longitude]
+      else
+        @address = args
+      end
+    end
+  end
+
+  def should_geocode?
+    !@address.nil? && @latitude.nil? && @longitude.nil?
+  end
+
+  def valid?
+    !@latitude.nil? && !@longitude.nil?
+  end
+
+  def geocode
+    results = Geocoder.search(@address)
+    if results.count > 0
+      @latitude = results.first.latitude
+      @longitude = results.first.longitude
+    end
+    valid?
   end
 
   def fetch
-    response = StationToStation::Connection.get('/stations/nearest', {
-      latitude: @latitude,
-      longitude: @longitude,
-      limit: 3
-    })
+    geocode if should_geocode?
 
-    if response && (json = Array(JSON.parse(response))) && json.count > 0
-      self.response_text = station_data_to_string(json.shift)
-      alternates = json.map{|d| station_data_to_string(d)}
-      self.response_attachments = alternates.count > 0 ? ["Alternates:\n" + alternates.join("\n")] : []
+    if valid?
+      response = StationToStation::Connection.get('/stations/nearest', {
+        latitude: @latitude,
+        longitude: @longitude,
+        limit: 3
+      })
+
+      if response && (json = Array(JSON.parse(response))) && json.count > 0
+        self.response_text = station_data_to_string(json.shift)
+        alternates = json.map{|d| station_data_to_string(d)}
+        self.response_attachments = alternates.count > 0 ? ["Alternates:\n" + alternates.join("\n")] : []
+      else
+        self.response_text = "Error getting availability data"
+      end
     else
-      self.response_text = "Error getting availability data"
+      self.response_text = "Invalid input '#{@address}'"
     end
   end
 

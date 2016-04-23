@@ -23,8 +23,8 @@ module StationsBot
       def build_command
         if args.nil? || args =~ /^help$/i
           HelpCommand.new
-        elsif matches = args.match(/^(?<latitude>-?[\d\.]+)\s*,\s*(?<longitude>-?[\d\.]+)$/)
-          GeolocationCommand.new(matches)
+        else
+          GeolocationCommand.new(args)
         end
       end
     end

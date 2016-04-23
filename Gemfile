@@ -7,6 +7,7 @@ gem 'json'
 gem 'grape'
 gem 'thin'
 gem 'rest-client', '~> 1.8'
+gem 'geocoder'
 
 group :test do
   gem "minitest"

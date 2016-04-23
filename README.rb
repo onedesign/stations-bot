@@ -19,8 +19,6 @@
 
 ### Get station availability nearest an address
 
-**TODO**
-
 ```
 /stations 230 W Superior St, Chicago
 
@@ -55,3 +53,15 @@ Run test using:
 ```
 rake test [test/path/to/test.rb]
 ```
+
+## How it works
+
+Slack sends all requests via a POST call to a single route. In our case, that route is `/v1/`.
+
+One of the params Slack sends a `text`, which we use to understand the request.
+
+For example, if text looks like geocoordinates, the app will create a GeolocationCommand with the coordinates,
+and then send a request to Station to Station to find stations nearby, as well as their availability.
+
+If the text is unmatched, or follows a format we don't quite understand, we attempt to geocode it.
+If the geocoding is successful, we send the resulting lat/lon to Station to Station. Else, we respond with an error.

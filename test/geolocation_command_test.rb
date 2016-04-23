@@ -19,4 +19,16 @@ class GeolocationCommandTest < StationsBotTestBase
     end
   end
 
+  def test_coordinate_arguments_avoid_geocoding
+    cmd = GeolocationCommand.new('41.8764280000, -87.6203390000')
+    assert cmd.valid?
+    refute cmd.should_geocode?
+  end
+
+  def test_unmatched_string_arguments_require_geocoding
+    cmd = GeolocationCommand.new('something else')
+    refute cmd.valid?
+    assert cmd.should_geocode?
+  end
+
 end
