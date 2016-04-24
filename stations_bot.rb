@@ -3,12 +3,25 @@ module StationsBot
     version 'v1', :using => :path
     format :json
 
+    rescue_from Grape::Exceptions::ValidationErrors do |e|
+      error!({ text: e.message }, 400)
+    end
+
     rescue_from :all do |e|
-      error!('Unknown error', 500)
+      error!({text: "Unknown error #{e.message}"}, 500)
     end
 
     before do
-      error!('Unauthorized', 401) unless authenticate
+      error!({text: 'Unauthorized'}, 401) unless authenticate
+    end
+
+    after do
+      user.touch
+    end
+
+    params do
+      requires :token, :user_id
+      optional :text, :team_id, :team_domain, :user_name
     end
 
     helpers do
@@ -17,7 +30,11 @@ module StationsBot
       end
 
       def args
-        params['text'].strip unless params['text'].nil?
+        params['text'].strip unless params.nil? || params['text'].nil?
+      end
+
+      def user
+        @user ||= User.find_or_create_from_params(params)
       end
 
       def build_command
