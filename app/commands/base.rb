@@ -1,5 +1,5 @@
 class BaseCommand
-  def fetch
+  def process
   end
 
   def response_text=(text)

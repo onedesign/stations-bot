@@ -48,7 +48,7 @@ module StationsBot
 
     post '/' do
       if command = build_command
-        command.fetch
+        command.process
         command.slackbot_response
       else
         {text: "Unknown command: '#{args}'"}

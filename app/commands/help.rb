@@ -1,5 +1,5 @@
 class HelpCommand < BaseCommand
-  def fetch
+  def process
     @response_text = <<HELP_TEXT
 Search for availability by address:
 >   /stations 1 N State St, Chicago

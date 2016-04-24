@@ -30,7 +30,7 @@ class GeolocationCommand < BaseCommand
     valid?
   end
 
-  def fetch
+  def process
     geocode if should_geocode?
 
     if valid?
