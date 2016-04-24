@@ -83,7 +83,7 @@ class GeolocationCommand < BaseCommand
       num_bikes = data['availability']['bikes'].to_i
       num_docks = data['availability']['docks'].to_i
       address = data['name']
-      "#{num_bikes} bikes, #{num_docks} docks @ #{address}"
+      "*#{num_bikes} bikes, #{num_docks} docks* @ #{address}"
     end
   end
 end

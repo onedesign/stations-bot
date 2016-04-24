@@ -29,8 +29,9 @@ class BaseCommand
   def slackbot_response
     response = {}
     response[:text] = response_text
-    response[:attachments] = response_attachments.map{|t| {text: t}}
+    response[:attachments] = response_attachments.map{|t| {text: t, mrkdwn_in: [:text, :pretext]}}
     response[:response_type] = 'in_channel' if in_channel
+    response[:mrkdwn] = true
     response
   end
 end
