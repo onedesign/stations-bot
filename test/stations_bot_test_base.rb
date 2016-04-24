@@ -26,7 +26,7 @@ class StationsBotTestBase < MiniTest::Test
   end
 
   def send(params)
-    get '/v1/slackbot', params
+    post '/v1/slackbot', params
   end
 
   def slack_params
