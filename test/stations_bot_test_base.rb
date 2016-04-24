@@ -5,12 +5,6 @@ class StationsBotTestBase < MiniTest::Test
     StationsBot::API
   end
 
-  def setup
-    Sequel.extension :migration
-    Sequel::Migrator.run(DB, 'db/migrations', :target => 0)
-    Sequel::Migrator.run(DB, 'db/migrations')
-  end
-
   def random_string(only_alphanum=true)
     character_set = [('a'..'z'), ('A'..'Z')] 
     character_set << " \"',./?[]{}-_=+".scan(/./) unless only_alphanum
