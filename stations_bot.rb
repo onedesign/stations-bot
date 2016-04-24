@@ -40,6 +40,8 @@ module StationsBot
       def build_command
         if args.nil? || args =~ /^help$/i
           HelpCommand.new
+        elsif SavePlaceCommand.matches args
+          SavePlaceCommand.new(user, args)
         else
           GeolocationCommand.new(args)
         end

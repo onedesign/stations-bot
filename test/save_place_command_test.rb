@@ -7,4 +7,10 @@ class SavePlaceCommandTest < StationsBotTestBase
     assert_response_format JSON.parse(last_response.body)
   end
 
+  def test_saves_new_place
+    count = Place.count
+    post '/v1', slack_params.merge(text: 'set placename 1 n state st, chicago')
+    assert_equal count + 1, Place.count, "Failed to save place: #{last_response.body}"
+  end
+
 end
