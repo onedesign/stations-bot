@@ -35,8 +35,6 @@ This uses data from [Station to Station](https://stationtostationapp.com), by [P
 
 ### Set your favorite locations by label
 
-**TODO**
-
 ```
 /stations set work 230 W Superior St, Chicago
 
