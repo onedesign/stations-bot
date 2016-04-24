@@ -38,7 +38,9 @@ module StationsBot
       end
 
       def build_command
-        if args.empty? || args =~ /^help$/i
+        if args.nil? && default = Place.where(user_id: user.id, name: 'default').first
+          GetAvailabilityCommand.new(default)
+        elsif args.nil? || args =~ /^help$/i
           HelpCommand.new
         elsif SavePlaceCommand.matches args
           SavePlaceCommand.new(user, args)
