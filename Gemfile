@@ -11,7 +11,7 @@ gem 'geocoder'
 gem 'sequel'
 
 group :production, :dev do
-  gem 'mysql2'
+  gem 'pg'
 end
 
 group :test do

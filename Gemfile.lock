@@ -46,8 +46,8 @@ GEM
     multi_xml (0.5.5)
     mustermann19 (0.4.3)
       enumerable-lazy
-    mysql2 (0.3.18)
     netrc (0.11.0)
+    pg (0.18.4)
     rack (1.6.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
@@ -84,7 +84,7 @@ DEPENDENCIES
   grape
   json
   minitest
-  mysql2
+  pg
   rack
   rack-test
   rest-client (~> 1.8)
