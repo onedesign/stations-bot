@@ -1,4 +1,4 @@
-ENV['RACK_ENV'] ||= 'test'
+ENV['RACK_ENV'] = 'test'
 require 'rubygems'
 require 'minitest/autorun'
 require 'rack/test'

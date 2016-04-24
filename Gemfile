@@ -8,8 +8,14 @@ gem 'grape'
 gem 'thin'
 gem 'rest-client', '~> 1.8'
 gem 'geocoder'
+gem 'sequel'
+
+group :production, :dev do
+  gem 'mysql2'
+end
 
 group :test do
   gem "minitest"
   gem "rack-test", require: "rack/test"
+  gem "sqlite3"
 end
