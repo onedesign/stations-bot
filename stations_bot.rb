@@ -50,7 +50,11 @@ module StationsBot
       end
     end
 
-    post '/' do
+    get '/' do
+      error!("Hmm. You don't look like a Slackbot!", 401)
+    end
+
+    get '/slackbot' do
       if command = build_command
         command.process
         command.slackbot_response
