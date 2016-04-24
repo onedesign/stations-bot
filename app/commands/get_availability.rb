@@ -11,11 +11,12 @@ class GetAvailabilityCommand < GeolocationCommand
     !@place.nil? && !@place.latitude.nil? && !@place.longitude.nil?
   end
 
-  def station_to_station_params
-    {
-      latitude: @place.latitude,
-      longitude: @place.longitude
-    }
+  def latitude
+    @place.latitude
+  end
+
+  def longitude
+    @place.longitude
   end
   
   def process

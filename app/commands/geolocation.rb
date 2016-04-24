@@ -1,49 +1,60 @@
 class GeolocationCommand < BaseCommand
   def initialize(args)
     if args.is_a? Hash
-      @latitude = args[:latitude]
-      @longitude = args[:longitude]
+      self.latitude = args[:latitude]
+      self.longitude = args[:longitude]
     elsif args.is_a? String
       if matches = args.match(/^(?<latitude>-?[\d\.]+)\s*,\s*(?<longitude>-?[\d\.]+)$/)
-        @latitude = matches[:latitude]
-        @longitude = matches[:longitude]
+        self.latitude = matches[:latitude]
+        self.longitude = matches[:longitude]
       else
         @address = args
       end
     end
   end
 
+  def latitude=(lat)
+    @latitude = lat
+  end
+
+  def latitude
+    @latitude
+  end
+
+  def longitude=(lon)
+    @longitude = lon
+  end
+
+  def longitude
+    @longitude
+  end
+
   def should_geocode?
-    !@address.nil? && @latitude.nil? && @longitude.nil?
+    !@address.nil? && latitude.nil? && longitude.nil?
   end
 
   def valid?
-    !@latitude.nil? && !@longitude.nil?
+    !latitude.nil? && !longitude.nil?
   end
 
   def geocode
     results = Geocoder.search(@address)
     if results.count > 0
-      @latitude = results.first.latitude
-      @longitude = results.first.longitude
+      self.latitude = results.first.latitude
+      self.longitude = results.first.longitude
     end
     valid?
-  end
-
-  def station_to_station_params
-    {
-      latitude: @latitude,
-      longitude: @longitude
-    }
   end
 
   def process
     geocode if should_geocode?
 
     if valid?
-      response = StationToStation::Connection.get('/stations/nearest',
-        station_to_station_params.merge(limit: 3)
-      )
+      response = StationToStation::Connection.get('/stations/nearest', {
+        latitude: latitude,
+        longitude: longitude,
+        limit: 3
+      })
 
       if response && (json = Array(JSON.parse(response))) && json.count > 0
         self.response_text = station_data_to_string(json.shift)
