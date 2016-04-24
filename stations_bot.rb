@@ -38,11 +38,13 @@ module StationsBot
       end
 
       def build_command
-        if args.nil? || args =~ /^help$/i
+        if args.empty? || args =~ /^help$/i
           HelpCommand.new
         elsif SavePlaceCommand.matches args
           SavePlaceCommand.new(user, args)
-        else
+        elsif place = Place.where(user_id: user.id, name: args).first
+          GetAvailabilityCommand.new(place)
+        elsif args.split(' ').count > 1
           GeolocationCommand.new(args)
         end
       end

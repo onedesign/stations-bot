@@ -30,22 +30,27 @@ class GeolocationCommand < BaseCommand
     valid?
   end
 
+  def station_to_station_params
+    {
+      latitude: @latitude,
+      longitude: @longitude
+    }
+  end
+
   def process
     geocode if should_geocode?
 
     if valid?
-      response = StationToStation::Connection.get('/stations/nearest', {
-        latitude: @latitude,
-        longitude: @longitude,
-        limit: 3
-      })
+      response = StationToStation::Connection.get('/stations/nearest',
+        station_to_station_params.merge(limit: 3)
+      )
 
       if response && (json = Array(JSON.parse(response))) && json.count > 0
         self.response_text = station_data_to_string(json.shift)
         alternates = json.map{|d| station_data_to_string(d)}
         self.response_attachments = alternates.count > 0 ? ["Alternates:\n" + alternates.join("\n")] : []
       else
-        self.response_text = "Error getting availability data"
+        self.response_text = "No stations found near '#{@address}'"
       end
     else
       self.response_text = "Invalid input '#{@address}'"
