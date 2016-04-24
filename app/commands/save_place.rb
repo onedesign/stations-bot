@@ -23,7 +23,9 @@ class SavePlaceCommand < BaseCommand
   def process
     new_record = place.nil?
     update_place
-    if place.valid? && place.save
+    if !place.modified?
+      self.response_text = "No changes made to #{place.name}"
+    elsif place.valid? && place.save
       self.response_text = new_record ?
         "Successfully set your new place '#{place.name}'" :
         "Successfully updated #{place.name}"
