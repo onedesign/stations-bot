@@ -13,6 +13,10 @@ class GeolocationCommand < BaseCommand
     end
   end
 
+  def address
+    @address
+  end
+
   def latitude=(lat)
     @latitude = lat
   end
@@ -57,9 +61,8 @@ class GeolocationCommand < BaseCommand
       })
 
       if response && (json = Array(JSON.parse(response))) && json.count > 0
-        self.response_text = station_data_to_string(json.shift)
-        alternates = json.map{|d| station_data_to_string(d)}
-        self.response_attachments = alternates.count > 0 ? ["Alternates:\n" + alternates.join("\n")] : []
+        self.response_text = "Stations near _#{address}_:"
+        self.response_attachments = json.map{|station| station_data_to_attachment(station)}
       else
         self.response_text = "No stations found near '#{@address}'"
       end
@@ -78,12 +81,23 @@ class GeolocationCommand < BaseCommand
       data.key?('name')
   end
 
-  def station_data_to_string(data)
+  def station_data_to_attachment(data)
     if validate_station_data(data)
       num_bikes = data['availability']['bikes'].to_i
       num_docks = data['availability']['docks'].to_i
+      if num_bikes < 4 || num_docks < 4
+        color = "#a6364f"
+      elsif num_bikes < 6 || num_docks < 6
+        color = "#a6a64f"
+      else
+        color = "#36a64f"
+      end
       address = data['name']
-      "*#{num_bikes} bikes, #{num_docks} docks* @ #{address}"
+      {
+        text: "#{num_bikes} bikes, #{num_docks} docks @ *#{address}*",
+        color: color,
+        markdwn_in: ['text']
+      }
     end
   end
 end

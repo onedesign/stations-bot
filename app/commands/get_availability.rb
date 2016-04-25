@@ -18,7 +18,11 @@ class GetAvailabilityCommand < GeolocationCommand
   def longitude
     @place.longitude
   end
-  
+
+  def address
+    @place.name
+  end
+
   def process
     super
     @place.update(num_requests: @place.num_requests + 1)
