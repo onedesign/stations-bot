@@ -96,7 +96,7 @@ class GeolocationCommand < BaseCommand
       {
         text: "#{num_bikes} bikes, #{num_docks} docks @ *#{address}*",
         color: color,
-        markdwn_in: ['text']
+        mrkdwn_in: ['text']
       }
     end
   end
