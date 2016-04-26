@@ -29,7 +29,7 @@ module StationsBot
           team = Team.find_or_create(team_id: json['team_id'])
           data = {access_token: json['access_token']}
           data['team_name'] = json['team_name'] if json.key?('team_name')
-          team.set(data)
+          team.update(data)
           "You have successfully authenticated with Station Bot!"
         else
           error!("Received invalid auth params: #{json}", 401)

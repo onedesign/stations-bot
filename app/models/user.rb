@@ -17,7 +17,7 @@ class User < Sequel::Model
       data = safe_params(params)
       team = Team.where(team_id: params['team_id']).first
       data[:team_id] = team.id unless team.nil?
-      u.set(data)
+      u.update(data)
     }
   end
 
