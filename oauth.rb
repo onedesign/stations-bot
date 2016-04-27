@@ -30,12 +30,12 @@ module StationsBot
           data = {access_token: json['access_token']}
           data['team_name'] = json['team_name'] if json.key?('team_name')
           team.update(data)
-          "You have successfully authenticated with Station Bot!"
+          redirect "https://stationtostationapp.com/slack?success=true"
         else
-          error!("Received invalid auth params: #{json}", 401)
+          redirect "https://stationtostationapp.com/slack?success=false"
         end
       else
-        error!("Received invalid response from oauth.access", 400)
+        redirect "https://stationtostationapp.com/slack?success=false"
       end
     end
   end
