@@ -71,6 +71,21 @@ Run test using:
 rake test [test/path/to/test.rb]
 ```
 
+## Production
+
+This is currently running in a production environment on Heroku at [stations-bot.herokuapp.com](https://dashboard.heroku.com/apps/stations-bot/resources).
+
+Because it's a rack application, you can't run some of the perhaps more familiar commands like `heroku run rails c`. 
+
+Instead, if you need to use the console, do so as follows:
+
+```
+$ heroku run irb
+irb(main):001:0> require './bootstrap.rb'
+irb(main):001:0> User.count
+=> 1238763485
+```
+
 ## How it works
 
 Slack sends all requests via a POST call to a single route. In our case, that route is `/v1/`.
