@@ -42,7 +42,7 @@ module StationsBot
           GetAvailabilityCommand.new(default)
         elsif args.nil? || args == '' || args =~ /^help$/i
           HelpCommand.new
-        elsif args.nil? || args == '' || args =~ /^list$/i
+        elsif args =~ /^list$/i
           ListPlacesCommand.new(user)
         elsif SavePlaceCommand.matches args
           SavePlaceCommand.new(user, args)
