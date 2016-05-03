@@ -49,6 +49,15 @@ This uses data from [Station to Station](https://stationtostationapp.com), by [P
 > 2 bikes, 17 docks at Sedgwick St & Huron St
 ```
 
+### List your favorite locations
+
+```
+/stations list
+
+Your saved places:
+> *work:* 230 W Superior St, Chicago
+```
+
 ## Development
 
 This is a mostly standard Rack application, but you'll need a few things:
