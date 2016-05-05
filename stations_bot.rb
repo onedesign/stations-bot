@@ -26,7 +26,7 @@ module StationsBot
 
     helpers do
       def authenticate
-        Team.where(team_id: params['team_id']).any?
+        Team.where(team_id: params['team_id'], access_token: params['token']).any?
       end
 
       def args
