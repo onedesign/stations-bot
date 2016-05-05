@@ -13,6 +13,7 @@ module StationsBot
     end
 
     get '/authorize/callback' do
+      success = false
       if response = RestClient.get('https://slack.com/api/oauth.access', {
           params: {
             client_id: ENV['SLACK_CLIENT_ID'],
@@ -30,13 +31,10 @@ module StationsBot
           data = {access_token: json['access_token']}
           data['team_name'] = json['team_name'] if json.key?('team_name')
           team.update(data)
-          redirect "https://stationtostationapp.com/slack?success=true"
-        else
-          redirect "https://stationtostationapp.com/slack?success=false"
+          success = true
         end
-      else
-        redirect "https://stationtostationapp.com/slack?success=false"
       end
+      redirect "https://stationtostationapp.com/slack?success=#{success}"
     end
   end
 end
