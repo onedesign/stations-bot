@@ -2,10 +2,10 @@
 
 namespace :db do
   require 'sequel'
-  require File.expand_path('drop.rb', File.dirname(__FILE__))
-  require File.expand_path('create.rb', File.dirname(__FILE__))
   require 'dotenv'
   Dotenv.load
+  require_relative 'drop.rb'
+  require_relative 'create.rb'
 
   desc 'Connects to database'
   task :connect do
