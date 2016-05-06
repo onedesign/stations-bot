@@ -1,11 +1,9 @@
 ENV['RACK_ENV'] = 'test'
-require 'rubygems'
 require 'minitest/autorun'
 require 'rack/test'
-
 require 'sequel'
-File.delete('test/stations_bot-test.db') if File.exist?('test/stations_bot-test.rb')
-require File.expand_path('../../db/connect.rb', __FILE__)
+
+DB = Sequel.sqlite
 Sequel.extension :migration
 Sequel::Migrator.run(DB, 'db/migrations')
 

@@ -5,7 +5,8 @@ require 'grape'
 require 'json'
 require 'rest-client'
 require 'geocoder'
-require File.expand_path('../db/connect.rb', __FILE__)
+require 'sequel'
+DB = Sequel.connect(ENV['DATABASE_URL']) unless defined? DB
 
 Dir["./lib/*.rb"].each {|file| require file }
 Dir["./app/commands/*.rb"].sort.each {|file| require file }
