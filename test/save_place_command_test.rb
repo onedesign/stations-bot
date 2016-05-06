@@ -10,7 +10,8 @@ class SavePlaceCommandTest < StationsBotTestBase
   def test_saves_new_place
     count = Place.count
     _send slack_params.merge(text: 'set placename 1 n state st, chicago')
-    assert_equal count + 1, Place.count, "Failed to save place: #{last_response.body}"
+    new_count = Place.count
+    assert_equal count + 1, new_count, "Failed to save place: #{last_response.body}"
   end
 
 end

@@ -13,10 +13,7 @@ Sequel.migration do
 
     drop_column :users, :team_id
     drop_column :users, :team_domain
-
-    alter_table(:users) do
-      add_foreign_key :team_id, :teams
-    end
+    add_column :users, :team_id, Integer, index: true
   end
 
   down do
