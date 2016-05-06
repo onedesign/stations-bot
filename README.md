@@ -54,13 +54,11 @@ This uses data from [Station to Station](https://stationtostationapp.com), by [P
 This is a mostly standard Rack application, but you'll need a few things:
 
 1. Clone the repo
-2. Create a local database
-  * This can be MySQL, PostgeSQL, or Sqlite
-  * See more about options in the [Sequel Docs](http://sequel.jeremyevans.net/rdoc/classes/Sequel.html#method-c-connect)
-3. Define your environment variables in `.env`
-  * Set `DATABASE_URL` according to your DB setup defined in step 2
+2. Define your environment variables in `.env`
+  * Set `DATABASE_URL` to either a MySQL, PostgreSQL, or Sqlite database URL
   * If you're running the Station to Station API locally, set `STATION_TO_STATION_URL` to your localhost, else set it to `https://api.stationtostationapp.com`
   * You'll need a token to access the Station to Station API if it's not running locally. Contact @thelowlypeon for a token, or check the Heroku stations-bot settings for the production token
+3. Run `rake db:create db:migrate`
 4. Run using the command `rackup`, or, if you need to define a port, eg 1234, `rackup -p 1234`
 
 ## Testing
