@@ -14,7 +14,10 @@ class User < Sequel::Model
     User.find_or_create({
       user_id: params['user_id']
     }){|u|
-      u.set(safe_params(params))
+      data = safe_params(params)
+      team = Team.where(team_id: params['team_id']).first
+      data[:team_id] = team.id unless team.nil?
+      u.update(data)
     }
   end
 
@@ -24,6 +27,6 @@ class User < Sequel::Model
 
   private
     def self.safe_params(params)
-      Hash[User.columns.select{|k| k != :id}.map{|key| [key, params[key.to_s]]}]
+      Hash[User.columns.select{|k| ![:id, :team_id].include?(k)}.map{|key| [key, params[key.to_s]]}]
     end
 end

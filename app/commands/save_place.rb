@@ -30,7 +30,7 @@ class SavePlaceCommand < BaseCommand
         "Successfully set your new place '#{place.name}'" :
         "Successfully updated #{place.name}"
     else
-      self.response_text = "There were errors saving your place #{p.errors.join(', ')}"
+      self.response_text = "There were errors saving your place #{place.errors.join(', ')}"
     end
   end
 
