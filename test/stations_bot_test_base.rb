@@ -5,6 +5,11 @@ class StationsBotTestBase < MiniTest::Test
     StationsBot::API
   end
 
+  def setup
+    @team = Team.create(team_id: random_string, access_token: random_string)
+    super
+  end
+
   def random_string(only_alphanum=true)
     character_set = [('a'..'z'), ('A'..'Z')] 
     character_set << " \"',./?[]{}-_=+".scan(/./) unless only_alphanum
@@ -25,14 +30,14 @@ class StationsBotTestBase < MiniTest::Test
     end
   end
 
-  def send(params)
+  def _send(params)
     post '/v1/slackbot', params
   end
 
   def slack_params
     {
-      token: 'TEST',
-      team_id: random_string,
+      token: @team.access_token,
+      team_id: @team.team_id,
       team_domain: random_string,
       channel_id: random_string,
       channel_name: random_string,

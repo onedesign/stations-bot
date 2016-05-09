@@ -26,7 +26,7 @@ module StationsBot
 
     helpers do
       def authenticate
-        params['token'] == ENV['SLACK_APPLICATION_TOKEN']
+        Team.where(team_id: params['team_id'], access_token: params['token']).any?
       end
 
       def args

@@ -2,7 +2,7 @@ Sequel.migration do
   change do
     create_table(:places) do
       primary_key :id
-      foreign_key :user_id, :users
+      Integer :user_id, index: true #foreign keys break sqlite
       String :name, null: false, index: true
       String :query, null: false
       Float :latitude, null: false

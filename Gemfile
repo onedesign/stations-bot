@@ -10,7 +10,7 @@ gem 'rest-client', '~> 1.8'
 gem 'geocoder'
 gem 'sequel'
 
-group :production, :dev do
+group :production, :development do
   gem 'pg'
 end
 
