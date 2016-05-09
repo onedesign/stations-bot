@@ -42,6 +42,8 @@ module StationsBot
           GetAvailabilityCommand.new(default)
         elsif args.nil? || args == '' || args =~ /^help$/i
           HelpCommand.new
+        elsif args =~ /^list$/i
+          ListPlacesCommand.new(user)
         elsif SavePlaceCommand.matches args
           SavePlaceCommand.new(user, args)
         elsif place = Place.where(user_id: user.id, name: args).first
