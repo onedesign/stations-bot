@@ -1,3 +1,4 @@
+$stdout.sync = true
 ENV['RACK_ENV'] ||= 'development'
 require './bootstrap.rb'
 
