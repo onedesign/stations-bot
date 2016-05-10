@@ -17,7 +17,7 @@ class RemovePlaceCommand < BaseCommand
   def process
     if place
       self.response_text = place.delete ? 
-        "Successfully removed #{place.name}" :
+        "Successfully removed #{place.name} (#{place.query})" :
         self.response_text = "There were errors removing your saved place #{place.errors.join(', ')}"
     else
       self.response_text = "Couldn't find a saved place with that name"

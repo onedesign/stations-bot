@@ -63,8 +63,7 @@ Your saved places:
 ```
 /stations remove work
 
-Your saved places:
-> Removed "work" (230 W Superior St, Chicago)
+> Successfully removed work (230 W Superior St, Chicago)
 ```
 
 ## Development
