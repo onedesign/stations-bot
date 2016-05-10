@@ -44,6 +44,8 @@ module StationsBot
           HelpCommand.new
         elsif args =~ /^list$/i
           ListPlacesCommand.new(user)
+        elsif RemovePlaceCommand.matches args
+          RemovePlaceCommand.new(user, args)
         elsif SavePlaceCommand.matches args
           SavePlaceCommand.new(user, args)
         elsif place = Place.where(user_id: user.id, name: args).first

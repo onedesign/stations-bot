@@ -58,6 +58,15 @@ Your saved places:
 > *work:* 230 W Superior St, Chicago
 ```
 
+### Remove a favorite location
+
+```
+/stations remove work
+
+Your saved places:
+> Removed "work" (230 W Superior St, Chicago)
+```
+
 ## Development
 
 This is a mostly standard Rack application, but you'll need a few things:

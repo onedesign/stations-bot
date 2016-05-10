@@ -13,6 +13,9 @@ Get availability nearest your favorite locations by label:
 Get a list of your favorite stations by label:
 >   /stations list
 
+Remove a favorite station by label:
+>   /stations remove work
+
 Get availability nearest your default location:
 >   /stations set default work 1 N State St, Chicago
 >   /stations
